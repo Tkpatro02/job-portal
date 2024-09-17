@@ -2,6 +2,7 @@
 import { saveJobAction } from "../actions/jobAction";
 import ImageUpload from "@/app/components/ImageUpload";
 import type { Job } from "@/models/Job";
+import "@radix-ui/themes/styles.css";
 
 import {
   faEnvelope,
@@ -50,8 +51,10 @@ export default function JobForm({
     data.set("stateId", stateId.toString());
     data.set("cityId", cityId.toString());
     data.set("orgId", orgId);
+    console.log("orgId", orgId);
     const jobDoc = await saveJobAction(data);
-    redirect(`/jobs/${jobDoc.orgId}`);
+    // console.log("jobDoc", jobDoc);
+    // redirect(`/jobs/${jobDoc.orgID}`);
   }
 
   return (
@@ -69,15 +72,18 @@ export default function JobForm({
         <div className="grid sm:grid-cols-3 gap-6 *:grow">
           <div>
             Remote?
-            <RadioGroup.Root defaultValue="1" name="example">
-              <RadioGroup.Item value="1">Default</RadioGroup.Item>
-              <RadioGroup.Item value="2">Comfortable</RadioGroup.Item>
-              <RadioGroup.Item value="3">Compact</RadioGroup.Item>
+            <RadioGroup.Root
+              defaultValue={jobDoc?.remote || "hybrid"}
+              name="remote"
+            >
+              <RadioGroup.Item value="onsite">On-site</RadioGroup.Item>
+              <RadioGroup.Item value="hybrid">Hybrid-remote</RadioGroup.Item>
+              <RadioGroup.Item value="remote">Fully remote</RadioGroup.Item>
             </RadioGroup.Root>
           </div>
           <div>
             Full time?
-            <RadioGroup.Root name="type">
+            <RadioGroup.Root defaultValue={jobDoc?.type || "full"} name="type">
               <RadioGroup.Item value="project">Project</RadioGroup.Item>
               <RadioGroup.Item value="part">Part-time</RadioGroup.Item>
               <RadioGroup.Item value="full">Full-time</RadioGroup.Item>

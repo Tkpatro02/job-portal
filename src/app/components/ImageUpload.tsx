@@ -1,4 +1,3 @@
-"use client";
 import {
   faSpinner,
   faUser,
@@ -25,29 +24,19 @@ export default function ImageUpload({
   const [url, setUrl] = useState(defaultValue);
 
   async function upload(ev: ChangeEvent<HTMLInputElement>) {
-    try {
-      const input = ev.target as HTMLInputElement;
-      if (input && input.files?.length) {
-        setIsUploading(true);
-        const file = input.files[0];
-        const data = new FormData();
-        data.append("file", file);
-
-        const response: any = await axios.post("/api/auth/upload", data, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-
-        if (response.data.url) {
-          setUrl(response.data.url);
-          setIsUploading(false);
-          setIsImageLoading(true);
-        }
+    const input = ev.target as HTMLInputElement;
+    if (input && input.files?.length && input.files.length > 0) {
+      setIsUploading(true);
+      const file = input.files[0];
+      const data = new FormData();
+      data.set("file", file);
+      const response: any = await axios.post("/api/upload", data);
+      console.log("9999999999999");
+      if (response.data.url) {
+        setUrl(response.data.url);
+        setIsUploading(false);
+        setIsImageLoading(true);
       }
-    } catch (e) {
-      console.error("Upload function error:", e);
-      setIsUploading(false);
     }
   }
 
@@ -79,7 +68,10 @@ export default function ImageUpload({
       <input type="hidden" value={url} name={name} />
       <div className="mt-2">
         <input
-          onChange={upload}
+          onChange={(ev) => {
+            console.log("ev", ev);
+            upload(ev);
+          }}
           ref={fileInRef}
           type="file"
           className="hidden"

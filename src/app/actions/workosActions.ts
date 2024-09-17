@@ -7,7 +7,10 @@ import {redirect} from "next/navigation";
 const workos = new WorkOS(process.env.WORKOS_API_KEY);
 
 export async function createCompany(companyName: string, userId:string) {
+  console.log('----------------------creae ocmpnyy------------',companyName,userId);
   const org = await workos.organizations.createOrganization({name: companyName});
+
+  console.log('org',org);
   await workos.userManagement.createOrganizationMembership({
     userId,
     organizationId: org.id,

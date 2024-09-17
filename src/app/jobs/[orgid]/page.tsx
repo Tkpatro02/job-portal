@@ -9,14 +9,17 @@ import mongoose from "mongoose";
 
 type PageProps = {
   params: {
-    orgId: string;
+    orgid: string;
   };
 };
 
 export default async function CompanyJobsPage(props: PageProps) {
+  console.log("000000000000000000000000000000000000000000");
   const workos = new WorkOS(process.env.WORKOS_API_KEY);
-  const org = await workos.organizations.getOrganization(props.params.orgId);
-  await mongoose.connect(process.env.MONGO_URI as string);
+  console.log("props.params.orgId", props.params);
+  const org = await workos.organizations.getOrganization(props.params.orgid);
+  console.log("---orgggg", org);
+  await mongoose.connect(process.env.MONGODB_URI as string);
   const jobsDocs = await JobModel.find({ orgId: org.id });
   const orgs = [];
   for (const job of jobsDocs) {

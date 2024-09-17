@@ -3,11 +3,13 @@ import {NextRequest} from "next/server";
 import uniqid from 'uniqid';
 
 export async function POST(req: NextRequest) {
+  console.log('---------------------');
   const data = await req.formData();
   const file = data.get('file') as File;
+  console.log('file',file);
 
   const s3Client = new S3Client({
-    region: 'us-east-1',
+    region: 'eu-north-1',
     credentials: {
       accessKeyId: process.env.S3_ACCESS_KEY as string,
       secretAccessKey: process.env.S3_SECRET_ACCESS_KEY as string,
@@ -26,7 +28,7 @@ export async function POST(req: NextRequest) {
   }
   const buffer = Buffer.concat(chunks);
 
-  const bucketName = 'dawid-job-board';
+  const bucketName = 'patro-job-board';
   await s3Client.send(new PutObjectCommand({
     Bucket: bucketName,
     Key: newFilename,

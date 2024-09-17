@@ -6,8 +6,6 @@ export default async function NewCompanyPage() {
   async function handleNewCompanyFormSubmit(data: FormData) {
     "use server";
     if (user) {
-      const pm = data.get("newCompanyName") as string;
-      console.log("pn", pm);
       await createCompany(data.get("newCompanyName") as string, user.id);
     }
   }

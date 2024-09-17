@@ -1,5 +1,5 @@
-import type { Job } from "@/models/Job";
 import Jobroll from "./Jobroll";
+import type { Job } from "@/models/Job";
 
 export default function Jobs({
   header,
@@ -15,7 +15,11 @@ export default function Jobs({
 
         <div className="flex flex-col gap-4">
           {!jobs?.length && <div>No jobs found</div>}
-          {jobs && jobs.map((job) => <Jobroll jobDoc={job} />)}
+          {jobs &&
+            jobs.map((job) => (
+              // Add a unique 'key' prop here, assuming 'job._id' is unique
+              <Jobroll key={job._id} jobDoc={job} />
+            ))}
         </div>
       </div>
     </div>
