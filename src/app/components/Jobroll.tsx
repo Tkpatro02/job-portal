@@ -2,7 +2,7 @@ import type { Job } from "@/models/Job";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function Jobroll({ jobDoc }: { jobDoc: Job }) {
+export default async function Jobroll({ jobDoc }: { jobDoc: Job }) {
   console.log("------------------jobrolll----------------------", jobDoc);
 
   function capitalizeFirstLetter(word: string): string {
@@ -31,7 +31,7 @@ export default function Jobroll({ jobDoc }: { jobDoc: Job }) {
                 &middot; {jobDoc?.state}
               </div>
             </div>
-            <div className="content-end text-gray-500 text-sm">2 weeks ago</div>
+            <div className="content-end text-gray-500 text-sm">2 weeks</div>
           </div>
         </div>
       </div>

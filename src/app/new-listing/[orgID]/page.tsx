@@ -4,7 +4,7 @@ import { WorkOS } from "@workos-inc/node";
 
 type PageProps = {
   params: {
-    orgID: string;
+    orgId: string;
   };
 };
 
@@ -14,7 +14,7 @@ export default async function NewListingForOrgPage(props: PageProps) {
   if (!user) {
     return "Please log in";
   }
-  const orgId = props.params?.orgID;
+  const orgId = props.params.orgId;
   console.log("props.params", props.params);
   const oms = await workos.userManagement.listOrganizationMemberships({
     userId: user.id,
