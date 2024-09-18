@@ -1,21 +1,21 @@
 import JobForm from "@/app/components/JobForm";
-import { getUser } from "@workos-inc/authkit-nextjs";
-import { WorkOS } from "@workos-inc/node";
+import {getUser} from "@workos-inc/authkit-nextjs";
+import {WorkOS} from "@workos-inc/node";
 
 type PageProps = {
   params: {
-    orgId: string;
+    orgID: string;
   };
 };
 
 export default async function NewListingForOrgPage(props: PageProps) {
-  const { user } = await getUser();
+  const {user} = await getUser();
   const workos = new WorkOS(process.env.WORKOS_API_KEY);
   if (!user) {
     return "Please log in";
   }
-  const orgId = props.params.orgId;
-  console.log("props.params", props.params);
+  const orgId = props.params.orgID;
+
   const oms = await workos.userManagement.listOrganizationMemberships({
     userId: user.id,
     organizationId: orgId,

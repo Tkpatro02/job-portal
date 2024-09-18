@@ -1,7 +1,7 @@
 "use client";
-import { saveJobAction } from "../actions/jobAction";
+import {saveJobAction} from "../actions/jobAction";
 import ImageUpload from "@/app/components/ImageUpload";
-import type { Job } from "@/models/Job";
+import type {Job} from "@/models/Job";
 import "@radix-ui/themes/styles.css";
 
 import {
@@ -12,22 +12,12 @@ import {
   faStar,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  Button,
-  RadioGroup,
-  TextArea,
-  TextField,
-  Theme,
-} from "@radix-ui/themes";
-import { redirect } from "next/navigation";
-import { useState } from "react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {Button, RadioGroup, TextArea, TextField, Theme} from "@radix-ui/themes";
+import {redirect} from "next/navigation";
+import {useState} from "react";
 import "react-country-state-city/dist/react-country-state-city.css";
-import {
-  CitySelect,
-  CountrySelect,
-  StateSelect,
-} from "react-country-state-city";
+import {CitySelect, CountrySelect, StateSelect} from "react-country-state-city";
 
 export default function JobForm({
   orgId,
@@ -52,6 +42,7 @@ export default function JobForm({
     data.set("cityId", cityId.toString());
     data.set("orgId", orgId);
     console.log("orgId", orgId);
+    console.log("=----------0000000000---------------", data);
     const jobDoc = await saveJobAction(data);
     // console.log("jobDoc", jobDoc);
     // redirect(`/jobs/${jobDoc.orgID}`);
@@ -101,9 +92,7 @@ export default function JobForm({
           Location
           <div className="flex flex-col sm:flex-row gap-4 *:grow">
             <CountrySelect
-              defaultValue={
-                countryId ? { id: countryId, name: countryName } : 0
-              }
+              defaultValue={countryId ? {id: countryId, name: countryName} : 0}
               onChange={(e: any) => {
                 setCountryId(e.id);
                 setCountryName(e.name);
@@ -111,7 +100,7 @@ export default function JobForm({
               placeHolder="Select Country"
             />
             <StateSelect
-              defaultValue={stateId ? { id: stateId, name: stateName } : 0}
+              defaultValue={stateId ? {id: stateId, name: stateName} : 0}
               countryid={countryId}
               onChange={(e: any) => {
                 setStateId(e.id);
@@ -120,7 +109,7 @@ export default function JobForm({
               placeHolder="Select State"
             />
             <CitySelect
-              defaultValue={cityId ? { id: cityId, name: cityName } : 0}
+              defaultValue={cityId ? {id: cityId, name: cityName} : 0}
               countryid={countryId}
               stateid={stateId}
               onChange={(e: any) => {
