@@ -1,8 +1,8 @@
-import { JobModel } from "@/models/Job";
+import {JobModel} from "@/models/Job";
 import mongoose from "mongoose";
-import { NextRequest } from "next/server";
+import {NextRequest} from "next/server";
 
-export default async function DELETE(req: NextRequest) {
+export async function DELETE(req: NextRequest) {
   const url = new URL(req.url);
   const id = url.searchParams.get("id");
   await mongoose.connect(process.env.MONGODB_URI as string);
