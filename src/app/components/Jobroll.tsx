@@ -1,9 +1,11 @@
-import type {Job} from "@/models/Job";
-import {faHeart} from "@fortawesome/free-regular-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+"use client";
+import type { Job } from "@/models/Job";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 import Link from "next/link";
 
-export default async function Jobroll({jobDoc}: {jobDoc: Job}) {
+export default function Jobroll({ jobDoc }: { jobDoc: Job }) {
   console.log("------------------jobrolll----------------------", jobDoc);
 
   function capitalizeFirstLetter(word: string): string {
@@ -37,15 +39,17 @@ export default async function Jobroll({jobDoc}: {jobDoc: Job}) {
                   Edit
                 </Link>{" "}
                 &middot;{" "}
-                {/* <button
+                <button
                   type="button"
                   onClick={async () => {
                     await axios.delete("/api/jobs?id=" + jobDoc._id);
                     window.location.reload();
+
+                    //src/app/api/jobs
                   }}
                 >
                   Delete
-                </button> */}
+                </button>
               </>
             </div>
             <div className="content-end text-gray-500 text-sm">2 weeks</div>
