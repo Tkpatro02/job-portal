@@ -1,24 +1,21 @@
 import Image from "next/image";
 import Hero from "@/app/components/Hero";
 import Jobs from "@/app/components/Jobs";
-import {
-  getSignInUrl,
-  getSignUpUrl,
-  getUser,
-  signOut,
-} from "@workos-inc/authkit-nextjs";
+import { getUser } from "@workos-inc/authkit-nextjs";
+import { addOrgAndUserData, JobModel } from "@/models/Job";
 
 export default async function Home() {
-  // const { user } = await getUser();
+  const { user } = await getUser();
 
-  // Get the URL to redirect the user to AuthKit to sign in
-  const signInUrl = await getSignInUrl();
-
-  // Get the URL to redirect the user to AuthKit to sign up
-  const signUpUrl = await getSignUpUrl();
+  const latestJobs = await addOrgAndUserData(
+    await JobModel.find({}, {}, { limit: 5, sort: "-createdAt" }),
+    user
+  );
+  console.log("latestjobs", latestJobs);
   return (
     <div className="space-y-8">
       <Hero />
+      <Jobs header={""} jobs={latestJobs} isEditable={false} />
     </div>
   );
 }

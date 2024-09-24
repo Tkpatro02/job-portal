@@ -5,7 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import Link from "next/link";
 
-export default function Jobroll({ jobDoc }: { jobDoc: Job }) {
+export default function Jobroll({
+  jobDoc,
+  isEditable,
+}: {
+  jobDoc: Job;
+  isEditable: boolean;
+}) {
   console.log("------------------jobrolll----------------------", jobDoc);
 
   function capitalizeFirstLetter(word: string): string {
@@ -33,24 +39,27 @@ export default function Jobroll({ jobDoc }: { jobDoc: Job }) {
                 {capitalizeFirstLetter(jobDoc.remote)} &middot; {jobDoc?.city}{" "}
                 &middot; {jobDoc?.state}
               </div>
-              <>
-                {" "}
-                &middot; <Link href={"/jobs/edit/" + jobDoc._id}>
-                  Edit
-                </Link>{" "}
-                &middot;{" "}
-                <button
-                  type="button"
-                  onClick={async () => {
-                    await axios.delete("/api/jobs?id=" + jobDoc._id);
-                    window.location.reload();
 
-                    //src/app/api/jobs
-                  }}
-                >
-                  Delete
-                </button>
-              </>
+              {isEditable && (
+                <>
+                  {" "}
+                  &middot; <Link href={"/jobs/edit/" + jobDoc._id}>
+                    Edit
+                  </Link>{" "}
+                  &middot;{" "}
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      await axios.delete("/api/jobs?id=" + jobDoc._id);
+                      window.location.reload();
+
+                      //src/app/api/jobs
+                    }}
+                  >
+                    Delete
+                  </button>
+                </>
+              )}
             </div>
             <div className="content-end text-gray-500 text-sm">2 weeks</div>
           </div>

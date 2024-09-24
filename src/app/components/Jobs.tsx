@@ -4,9 +4,11 @@ import type { Job } from "@/models/Job";
 export default function Jobs({
   header,
   jobs,
+  isEditable,
 }: {
   header: string;
   jobs: Job[];
+  isEditable: boolean;
 }) {
   return (
     <div className="bg-slate-200 py-6 rounded-3xl">
@@ -18,7 +20,7 @@ export default function Jobs({
           {jobs &&
             jobs.map((job) => (
               // Add a unique 'key' prop here, assuming 'job._id' is unique
-              <Jobroll key={job._id} jobDoc={job} />
+              <Jobroll key={job._id} jobDoc={job} isEditable={isEditable} />
             ))}
         </div>
       </div>

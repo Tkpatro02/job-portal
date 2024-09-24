@@ -44,13 +44,14 @@ const JobSchema = new Schema({
   contactPhone: {type: String, required: true},
   contactEmail: {type: String, required: true},
   orgId: {type: String, required: true},
+  createdAt: { type: String, required: true, index: true },
 }, {
   timestamps: true,
 });
 
 export async function addOrgAndUserData(jobsDocs:Job[], user:User|null) {
   jobsDocs = JSON.parse(JSON.stringify(jobsDocs));
-  await mongoose.connect(process.env.MONGO_URI as string);
+  await mongoose.connect(process.env.MONGODB_URI as string);
   const workos = new WorkOS(process.env.WORKOS_API_KEY);
   let oms:AutoPaginatable<OrganizationMembership>|null = null;
   if (user) {
