@@ -1,7 +1,7 @@
 "use client";
-import type { Job } from "@/models/Job";
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type {Job} from "@/models/Job";
+import {faHeart} from "@fortawesome/free-regular-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import Link from "next/link";
 
@@ -12,8 +12,6 @@ export default function Jobroll({
   jobDoc: Job;
   isEditable: boolean;
 }) {
-  console.log("------------------jobrolll----------------------", jobDoc);
-
   function capitalizeFirstLetter(word: string): string {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
